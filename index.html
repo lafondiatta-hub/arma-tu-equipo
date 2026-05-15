@@ -2072,8 +2072,14 @@
   // Picada
   function setPicadaIncluir(v) {
     state.picada.incluir = v;
-    if (!v) { state.picada.tipo = null; state.picada.tamano = null; }
-    render();
+    if (!v) {
+      state.picada.tipo = null;
+      state.picada.tamano = null;
+      render();
+      setTimeout(() => next(), 300);
+    } else {
+      render();
+    }
   }
   function selectPicadaTipo(key) {
     state.picada.tipo = key;
@@ -2089,8 +2095,14 @@
   // Carne
   function setCarneIncluir(v) {
     state.carne.incluir = v;
-    if (!v) { state.carne.tipo = null; state.carne.carbon = false; }
-    render();
+    if (!v) {
+      state.carne.tipo = null;
+      state.carne.carbon = false;
+      render();
+      setTimeout(() => next(), 300);
+    } else {
+      render();
+    }
   }
   function selectCarneTipo(key) { state.carne.tipo = key; render(); }
   function setCarbon(v) { state.carne.carbon = v; render(); }
@@ -2098,16 +2110,26 @@
   // Burger
   function setBurgerIncluir(v) {
     state.burger.incluir = v;
-    if (!v) state.burger.tipo = null;
-    render();
+    if (!v) {
+      state.burger.tipo = null;
+      render();
+      setTimeout(() => next(), 300);
+    } else {
+      render();
+    }
   }
   function selectBurgerTipo(key) { state.burger.tipo = key; render(); }
 
   // Sin alcohol
   function setSinAlcoholIncluir(v) {
     state.sinAlcohol.incluir = v;
-    if (!v) state.sinAlcohol.items = {};
-    render();
+    if (!v) {
+      state.sinAlcohol.items = {};
+      render();
+      setTimeout(() => next(), 300);
+    } else {
+      render();
+    }
   }
   function adjustBebida(cat, key, delta) {
     if (!state[cat].items[key]) state[cat].items[key] = 0;
@@ -2122,8 +2144,11 @@
     if (!v) {
       state.conAlcohol.cerveza = { incluir: false, unidad: 0, sixpack: 0 };
       state.conAlcohol.vino = { incluir: false, tipo: null, cantidad: 0 };
+      render();
+      setTimeout(() => next(), 300);
+    } else {
+      render();
     }
-    render();
   }
   function toggleCerveza(v) {
     state.conAlcohol.cerveza.incluir = v;
@@ -2152,8 +2177,13 @@
   // Postre
   function setPostreIncluir(v) {
     state.postre.incluir = v;
-    if (!v) state.postre.items = {};
-    render();
+    if (!v) {
+      state.postre.items = {};
+      render();
+      setTimeout(() => next(), 300);
+    } else {
+      render();
+    }
   }
 
   // ============================================================
