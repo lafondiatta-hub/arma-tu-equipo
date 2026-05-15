@@ -477,6 +477,170 @@
     transform: translateY(-1px);
   }
 
+  /* ---------- INPUTS DE TEXTO ---------- */
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gris);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .form-group label .required {
+    color: var(--celeste);
+    margin-left: 2px;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(242, 240, 238, 0.12);
+    border-radius: 12px;
+    color: var(--tiza);
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    transition: border-color .2s, background .2s;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--celeste);
+    background: rgba(0,0,0,0.5);
+  }
+
+  .form-input::placeholder, .form-textarea::placeholder {
+    color: rgba(242, 240, 238, 0.3);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 70px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* ---------- BIG CHOICE (Retiro / Delivery) ---------- */
+  .big-choice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  @media (max-width: 480px) {
+    .big-choice { grid-template-columns: 1fr; }
+  }
+
+  .big-choice-btn {
+    padding: 24px 18px;
+    border: 2px solid rgba(242, 240, 238, 0.15);
+    background: rgba(0,0,0,0.25);
+    color: var(--tiza);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all .2s;
+    text-align: center;
+  }
+
+  .big-choice-btn:hover {
+    border-color: var(--celeste);
+    background: rgba(116, 172, 223, 0.06);
+    transform: translateY(-2px);
+  }
+
+  .big-choice-btn.selected {
+    border-color: var(--celeste);
+    background: rgba(116, 172, 223, 0.12);
+  }
+
+  .big-choice-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .big-choice-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .big-choice-desc {
+    font-size: 12px;
+    color: var(--gris);
+    line-height: 1.4;
+  }
+
+  /* ---------- ENVÍO BADGE ---------- */
+  .shipping-info {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    border-left: 3px solid var(--celeste);
+    background: rgba(116, 172, 223, 0.08);
+  }
+
+  .shipping-info.gratis {
+    border-left-color: var(--verde-ok);
+    background: rgba(76, 175, 80, 0.08);
+    color: #B6E5B8;
+  }
+
+  .shipping-info.cotizar {
+    border-left-color: var(--sol);
+    background: rgba(246, 180, 14, 0.08);
+    color: #F4DCA0;
+  }
+
+  .shipping-info strong {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 14px;
+  }
+
+  /* ---------- LOCAL INFO BOX ---------- */
+  .local-box {
+    background: linear-gradient(135deg, rgba(116, 172, 223, 0.12), rgba(116, 172, 223, 0.04));
+    border: 1px solid rgba(116, 172, 223, 0.3);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .local-box .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--celeste);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .local-box .address {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--tiza);
+  }
+
+  .local-box .detail {
+    font-size: 13px;
+    color: var(--beige);
+    margin-top: 4px;
+  }
+
   /* ---------- RESUMEN ---------- */
   .summary-section {
     margin-bottom: 18px;
@@ -723,32 +887,70 @@
 
   const WHATSAPP_NUMBER = '5491123921455';
 
+  // Zonas de envío (extraído del PDF Mayo 2026)
+  const ZONAS_ENVIO = {
+    // CABA - precio por barrio
+    'recoleta': 8000, 'nuñez': 8000, 'nunez': 8000, 'colegiales': 8000, 'belgrano': 8000, 'palermo': 8000, 'villa crespo': 8000,
+    'villa urquiza': 8000, 'montserrat': 8000, 'san cristobal': 8000, 'san cristóbal': 8000,
+    'devoto': 8000, 'villa pueyrredon': 8000, 'villa pueyrredón': 8000, 'san martin': 8000, 'san martín': 8000,
+    'caballito': 8000, 'flores': 8000, 'boedo': 8000, 'congreso': 8000,
+    'liniers': 10000, 'floresta': 10000, 'monte castro': 10000,
+    // Zona Norte - excepciones (no gratis)
+    'vicente lopez': 6000, 'vicente lópez': 6000,
+    'carapachay': 6000,
+    'villa adelina': 6000,
+    'bella vista': 11000,
+    'benavidez': 7000, 'benavídez': 7000,
+    'villa de mayo': 7000,
+    // Pilar
+    'tortugas': 10500, 'ayres': 10500,
+    'martindale': 11500, 'maylin': 11500,
+    'estancias': 13000,
+    // Zona Norte gratis
+    'beccar': 0, 'san isidro': 0, 'martinez': 0, 'martínez': 0,
+    'olivos': 0, 'la lucila': 0, 'florida': 0, 'munro': 0,
+    'tigre': 0, 'nordelta': 0, 'don torcuato': 0
+  };
+
   // ============================================================
   // ESTADO
   // ============================================================
   const STEPS = [
-    'equipo',     // 0 - cantidad personas
-    'picada',     // 1
-    'carne',      // 2
-    'burger',     // 3
-    'sinAlcohol', // 4
-    'conAlcohol', // 5
-    'postre',     // 6
-    'resumen'     // 7
+    'welcome',    // 0 - nombre DT
+    'equipo',     // 1 - cantidad personas
+    'picada',     // 2
+    'carne',      // 3
+    'burger',     // 4
+    'sinAlcohol', // 5
+    'conAlcohol', // 6
+    'postre',     // 7
+    'resumen',    // 8
+    'checkout'    // 9 - retiro / delivery + datos
   ];
 
   let currentStep = 0;
 
   let state = {
+    nombreDT: '',
     hombres: 0,
     mujeres: 0,
     ninos: 0,
     picada: { incluir: null, tipo: null, tamano: null },
     carne:  { incluir: null, tipo: null, carbon: false },
     burger: { incluir: null, tipo: null },
-    sinAlcohol: { incluir: null, items: {} }, // items: { coca: 2, agua: 3 }
+    sinAlcohol: { incluir: null, items: {} },
     conAlcohol: { incluir: null, cerveza: { incluir: false, unidad: 0, sixpack: 0 }, vino: { incluir: false, tipo: null, cantidad: 0 } },
-    postre: { incluir: null, items: {} } // items: { chocotorta: 4, franui: 2 }
+    postre: { incluir: null, items: {} },
+    entrega: {
+      modalidad: null, // 'retiro' o 'delivery'
+      nombre: '',
+      telefono: '',
+      direccion: '',
+      horario: '',
+      metodoPago: '',
+      costoEnvio: null, // null = no calculado, 0 = gratis, número = precio, 'cotizar' = a cotizar
+      zonaDetectada: ''
+    }
   };
 
   // ============================================================
@@ -937,7 +1139,8 @@
     c.innerHTML = '';
     const stepName = STEPS[currentStep];
 
-    if (stepName === 'equipo')       c.appendChild(renderEquipo());
+    if (stepName === 'welcome')      c.appendChild(renderWelcome());
+    else if (stepName === 'equipo')  c.appendChild(renderEquipo());
     else if (stepName === 'picada')  c.appendChild(renderPicada());
     else if (stepName === 'carne')   c.appendChild(renderCarne());
     else if (stepName === 'burger')  c.appendChild(renderBurger());
@@ -945,8 +1148,52 @@
     else if (stepName === 'conAlcohol') c.appendChild(renderConAlcohol());
     else if (stepName === 'postre')  c.appendChild(renderPostre());
     else if (stepName === 'resumen') c.appendChild(renderResumen());
+    else if (stepName === 'checkout') c.appendChild(renderCheckout());
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ---------- STEP 0: WELCOME / NOMBRE DT ----------
+  function renderWelcome() {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="step-num">Bienvenido al banco</div>
+      <h2 class="step-title">Sos el <span class="italic">DT</span></h2>
+      <p class="step-desc">Antes de arrancar a armar tu equipo, decinos cómo te llamás.</p>
+
+      <div class="form-group">
+        <label>Nombre del DT <span class="required">*</span></label>
+        <input
+          type="text"
+          class="form-input"
+          id="input-nombre-dt"
+          placeholder="Ej: Lionel Scaloni"
+          value="${state.nombreDT}"
+          oninput="updateNombreDT(this.value)"
+        >
+      </div>
+
+      ${state.nombreDT.trim().length >= 2 ? `
+        <div class="note-tip">
+          ¡Bienvenido <strong>${state.nombreDT}</strong>! En 7 pasos vas a armar tu pedido perfecto.
+        </div>
+      ` : ''}
+
+      <div class="nav">
+        <button class="btn btn-primary" ${state.nombreDT.trim().length < 2 ? 'disabled' : ''} onclick="next()">
+          Arrancar a armar el equipo →
+        </button>
+      </div>
+    `;
+    // Mantener foco en el input cuando se está tipeando
+    setTimeout(() => {
+      const inp = document.getElementById('input-nombre-dt');
+      if (inp && document.activeElement !== inp && state.nombreDT) {
+        // No robar el foco si ya está escribiendo
+      }
+    }, 0);
+    return card;
   }
 
   // ---------- STEP 0: EQUIPO ----------
@@ -988,6 +1235,7 @@
       ${totalPersonasReal() > 0 ? `<div class="note-tip">Tenés <strong>${totalPersonasReal()} convocados</strong> en total. Los niños cuentan como medio adulto para calcular comida.</div>` : ''}
 
       <div class="nav">
+        <button class="btn btn-secondary" onclick="prev()">← Atrás</button>
         <button class="btn btn-primary" ${totalPersonasReal() === 0 ? 'disabled' : ''} onclick="next()">Siguiente →</button>
       </div>
     `;
@@ -1486,13 +1734,13 @@
           <div class="amount">${fmtPrice(total)}</div>
         </div>
         <div class="note-tip" style="margin-top:14px;">
-          <strong>Importante:</strong> Estos son precios orientativos del menú Mayo 2026. El envío se cotiza aparte según tu zona y el pedido final lo confirmamos por WhatsApp.
+          <strong>Importante:</strong> Estos son precios del menú Mayo 2026. En el siguiente paso definís si retirás por local o pedís delivery.
         </div>
       ` : ''}
 
       <div class="nav" style="flex-direction:column;">
-        <button class="btn btn-whatsapp" ${items.length === 0 ? 'disabled' : ''} onclick="enviarWhatsapp()">
-          📲 Hacer mi pedido por WhatsApp
+        <button class="btn btn-primary" ${items.length === 0 ? 'disabled' : ''} onclick="next()">
+          Continuar con la entrega →
         </button>
         <div style="display:flex;gap:12px;margin-top:12px;">
           <button class="btn btn-secondary" style="flex:1;" onclick="prev()">← Atrás</button>
@@ -1501,6 +1749,186 @@
       </div>
     `;
     return card;
+  }
+
+  // ---------- STEP CHECKOUT: RETIRO O DELIVERY ----------
+  function renderCheckout() {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const e = state.entrega;
+    const items = calcularItems();
+    const subtotal = calcularTotal();
+
+    // Costo de envío
+    let envioHTML = '';
+    let totalConEnvio = subtotal;
+    if (e.modalidad === 'delivery') {
+      if (e.costoEnvio === 0) {
+        envioHTML = `
+          <div class="shipping-info gratis">
+            <strong>✓ Envío GRATIS</strong>
+            ${e.zonaDetectada ? `Zona detectada: ${e.zonaDetectada}` : ''}
+          </div>
+        `;
+      } else if (typeof e.costoEnvio === 'number' && e.costoEnvio > 0) {
+        envioHTML = `
+          <div class="shipping-info">
+            <strong>Envío a ${e.zonaDetectada}: ${fmtPrice(e.costoEnvio)}</strong>
+            Se suma al total final.
+          </div>
+        `;
+        totalConEnvio = subtotal + e.costoEnvio;
+      } else if (e.costoEnvio === 'cotizar') {
+        envioHTML = `
+          <div class="shipping-info cotizar">
+            <strong>Envío a cotizar</strong>
+            Tu zona no está en nuestra tabla. Te confirmamos el costo de envío por WhatsApp.
+          </div>
+        `;
+      }
+    }
+
+    // Formularios
+    let formHTML = '';
+
+    if (e.modalidad === 'retiro') {
+      formHTML = `
+        <div class="local-box">
+          <div class="label">📍 Nuestro local</div>
+          <div class="address">Beccar, San Isidro</div>
+          <div class="detail">Coordinamos el horario exacto por WhatsApp</div>
+        </div>
+
+        <div class="form-group">
+          <label>Nombre completo <span class="required">*</span></label>
+          <input type="text" class="form-input" id="inp-nombre" placeholder="Ej: Juan Pérez" value="${e.nombre}" oninput="updateEntrega('nombre', this.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono <span class="required">*</span></label>
+          <input type="tel" class="form-input" id="inp-tel" placeholder="Ej: 11 2345-6789" value="${e.telefono}" oninput="updateEntrega('telefono', this.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Método de pago <span class="required">*</span></label>
+          <div class="options-list">
+            ${['Efectivo','Transferencia','Tarjeta de crédito'].map(m => `
+              <div class="option ${e.metodoPago === m ? 'selected' : ''}" onclick="updateEntrega('metodoPago','${m}')">
+                <div class="option-text">
+                  <div class="option-name">${m}</div>
+                </div>
+                <div class="option-check"></div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    } else if (e.modalidad === 'delivery') {
+      formHTML = `
+        <div class="form-group">
+          <label>Nombre completo <span class="required">*</span></label>
+          <input type="text" class="form-input" id="inp-nombre" placeholder="Ej: Juan Pérez" value="${e.nombre}" oninput="updateEntrega('nombre', this.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Dirección completa <span class="required">*</span></label>
+          <input type="text" class="form-input" id="inp-direccion" placeholder="Ej: Av. Cabildo 1234, Belgrano, CABA" value="${e.direccion}" oninput="updateDireccion(this.value)">
+          ${envioHTML}
+        </div>
+
+        <div class="form-group">
+          <label>Teléfono <span class="required">*</span></label>
+          <input type="tel" class="form-input" id="inp-tel" placeholder="Ej: 11 2345-6789" value="${e.telefono}" oninput="updateEntrega('telefono', this.value)">
+        </div>
+
+        <div class="form-group">
+          <label>Rango horario del envío <span class="required">*</span></label>
+          <div class="options-list">
+            ${['11 a 14 hs','13 a 17 hs','16 a 20 hs','Todo el día'].map(h => `
+              <div class="option ${e.horario === h ? 'selected' : ''}" onclick="updateEntrega('horario','${h}')">
+                <div class="option-text">
+                  <div class="option-name">${h}</div>
+                </div>
+                <div class="option-check"></div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Método de pago <span class="required">*</span></label>
+          <div class="options-list">
+            ${['Efectivo','Transferencia','Tarjeta de crédito'].map(m => `
+              <div class="option ${e.metodoPago === m ? 'selected' : ''}" onclick="updateEntrega('metodoPago','${m}')">
+                <div class="option-text">
+                  <div class="option-name">${m}</div>
+                </div>
+                <div class="option-check"></div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Total con envío sumado
+    let totalFinalHTML = '';
+    if (e.modalidad) {
+      totalFinalHTML = `
+        <div class="summary-total" style="margin-top:18px;">
+          <div>
+            <div class="label" style="font-size:11px;">Total con ${e.modalidad === 'delivery' && typeof e.costoEnvio === 'number' && e.costoEnvio > 0 ? 'envío' : 'pedido'}</div>
+            <div style="font-size:11px;color:var(--gris);margin-top:2px;">
+              ${e.modalidad === 'delivery' && e.costoEnvio === 'cotizar' ? '(+ envío a cotizar)' : ''}
+            </div>
+          </div>
+          <div class="amount">${fmtPrice(totalConEnvio)}</div>
+        </div>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="step-num">Último paso</div>
+      <h2 class="step-title">¿Cómo lo <span class="italic">querés</span>?</h2>
+      <p class="step-desc">${state.nombreDT ? `Bien ${state.nombreDT}, ya casi.` : 'Ya casi.'} Elegí cómo recibís tu pedido.</p>
+
+      <div class="big-choice">
+        <button class="big-choice-btn ${e.modalidad === 'retiro' ? 'selected' : ''}" onclick="setModalidad('retiro')">
+          <span class="big-choice-icon">🏪</span>
+          <div class="big-choice-title">Retiro por local</div>
+          <div class="big-choice-desc">Beccar, San Isidro</div>
+        </button>
+        <button class="big-choice-btn ${e.modalidad === 'delivery' ? 'selected' : ''}" onclick="setModalidad('delivery')">
+          <span class="big-choice-icon">🛵</span>
+          <div class="big-choice-title">Delivery</div>
+          <div class="big-choice-desc">Te lo llevamos a tu casa</div>
+        </button>
+      </div>
+
+      ${formHTML}
+      ${totalFinalHTML}
+
+      <div class="nav" style="flex-direction:column;">
+        <button class="btn btn-whatsapp" ${!puedeEnviarPedido() ? 'disabled' : ''} onclick="enviarWhatsapp()">
+          📲 Enviar pedido por WhatsApp
+        </button>
+        <div style="display:flex;gap:12px;margin-top:12px;">
+          <button class="btn btn-secondary" style="flex:1;" onclick="prev()">← Atrás</button>
+          <button class="btn btn-secondary" style="flex:1;" onclick="reiniciar()">🔄 Empezar de nuevo</button>
+        </div>
+      </div>
+    `;
+    return card;
+  }
+
+  function puedeEnviarPedido() {
+    const e = state.entrega;
+    if (!e.modalidad) return false;
+    if (!e.nombre.trim() || !e.telefono.trim() || !e.metodoPago) return false;
+    if (e.modalidad === 'delivery') {
+      if (!e.direccion.trim() || !e.horario) return false;
+    }
+    return true;
   }
 
   // ============================================================
@@ -1514,6 +1942,132 @@
   function next() { if (currentStep < STEPS.length - 1) { currentStep++; render(); } }
   function prev() { if (currentStep > 0) { currentStep--; render(); } }
   function goToStep(idx) { currentStep = idx; render(); }
+
+  // Nombre DT — solo actualiza estado, no re-renderiza (mantiene foco en input)
+  function updateNombreDT(val) {
+    state.nombreDT = val;
+    // Habilitar/deshabilitar el botón sin re-render completo
+    const btn = document.querySelector('.btn-primary');
+    if (btn) {
+      if (val.trim().length >= 2) btn.removeAttribute('disabled');
+      else btn.setAttribute('disabled', '');
+    }
+    // Actualizar el mensaje de bienvenida si pasa los 2 caracteres
+    const card = document.querySelector('.card');
+    if (card) {
+      const existingTip = card.querySelector('.note-tip');
+      if (val.trim().length >= 2 && !existingTip) {
+        const tip = document.createElement('div');
+        tip.className = 'note-tip';
+        tip.innerHTML = `¡Bienvenido <strong>${val}</strong>! En 7 pasos vas a armar tu pedido perfecto.`;
+        const nav = card.querySelector('.nav');
+        card.insertBefore(tip, nav);
+      } else if (existingTip && val.trim().length >= 2) {
+        existingTip.innerHTML = `¡Bienvenido <strong>${val}</strong>! En 7 pasos vas a armar tu pedido perfecto.`;
+      } else if (existingTip && val.trim().length < 2) {
+        existingTip.remove();
+      }
+    }
+  }
+
+  // Entrega: actualizar campos
+  function updateEntrega(campo, valor) {
+    state.entrega[campo] = valor;
+    // Para campos de tipo selección (radio-like), sí re-renderizamos
+    if (['metodoPago','horario'].includes(campo)) {
+      render();
+    } else {
+      // Para inputs de texto, solo actualizar el botón final sin perder foco
+      const btn = document.querySelector('.btn-whatsapp');
+      if (btn) {
+        if (puedeEnviarPedido()) btn.removeAttribute('disabled');
+        else btn.setAttribute('disabled', '');
+      }
+    }
+  }
+
+  // Dirección: calcular envío sin perder foco
+  function updateDireccion(valor) {
+    state.entrega.direccion = valor;
+    const res = detectarZonaEnvio(valor);
+    state.entrega.costoEnvio = res.costo;
+    state.entrega.zonaDetectada = res.zona;
+
+    // Actualizar el shipping-info sin re-renderizar todo (mantiene foco)
+    const formGroup = document.getElementById('inp-direccion')?.closest('.form-group');
+    if (formGroup) {
+      const existing = formGroup.querySelector('.shipping-info');
+      if (existing) existing.remove();
+      if (valor.trim().length >= 3) {
+        const div = document.createElement('div');
+        if (res.costo === 0) {
+          div.className = 'shipping-info gratis';
+          div.innerHTML = `<strong>✓ Envío GRATIS</strong>Zona detectada: ${res.zona}`;
+        } else if (typeof res.costo === 'number' && res.costo > 0) {
+          div.className = 'shipping-info';
+          div.innerHTML = `<strong>Envío a ${res.zona}: ${fmtPrice(res.costo)}</strong>Se suma al total final.`;
+        } else {
+          div.className = 'shipping-info cotizar';
+          div.innerHTML = `<strong>Envío a cotizar</strong>Tu zona no está en nuestra tabla. Te confirmamos el costo por WhatsApp.`;
+        }
+        formGroup.appendChild(div);
+      }
+    }
+
+    // Actualizar el total final con el envío
+    actualizarTotalFinal();
+
+    // Actualizar botón
+    const btn = document.querySelector('.btn-whatsapp');
+    if (btn) {
+      if (puedeEnviarPedido()) btn.removeAttribute('disabled');
+      else btn.setAttribute('disabled', '');
+    }
+  }
+
+  function actualizarTotalFinal() {
+    const e = state.entrega;
+    const subtotal = calcularTotal();
+    let total = subtotal;
+    if (e.modalidad === 'delivery' && typeof e.costoEnvio === 'number' && e.costoEnvio > 0) {
+      total = subtotal + e.costoEnvio;
+    }
+    const amountEl = document.querySelector('.summary-total .amount');
+    if (amountEl) amountEl.textContent = fmtPrice(total);
+  }
+
+  // Detectar zona de envío desde una dirección escrita
+  function detectarZonaEnvio(direccion) {
+    const dir = direccion.toLowerCase().trim();
+    if (dir.length < 3) return { costo: null, zona: '' };
+
+    // Buscar coincidencia con cualquier zona conocida
+    for (const [zona, costo] of Object.entries(ZONAS_ENVIO)) {
+      if (dir.includes(zona)) {
+        // Encontrar el nombre "lindo" para mostrar
+        const zonaCap = zona.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        return { costo: costo, zona: zonaCap };
+      }
+    }
+    // Si la dirección tiene más de 5 caracteres y no matcheó, asumimos a cotizar
+    if (dir.length >= 5) {
+      return { costo: 'cotizar', zona: '' };
+    }
+    return { costo: null, zona: '' };
+  }
+
+  // Modalidad de entrega (retiro / delivery)
+  function setModalidad(m) {
+    state.entrega.modalidad = m;
+    if (m === 'retiro') {
+      // Limpiar campos de delivery
+      state.entrega.direccion = '';
+      state.entrega.horario = '';
+      state.entrega.costoEnvio = null;
+      state.entrega.zonaDetectada = '';
+    }
+    render();
+  }
 
   // Picada
   function setPicadaIncluir(v) {
@@ -1607,15 +2161,26 @@
   // ============================================================
   function enviarWhatsapp() {
     const items = calcularItems();
-    const total = calcularTotal();
+    const subtotal = calcularTotal();
+    const e = state.entrega;
+    let totalFinal = subtotal;
+    if (e.modalidad === 'delivery' && typeof e.costoEnvio === 'number' && e.costoEnvio > 0) {
+      totalFinal = subtotal + e.costoEnvio;
+    }
 
-    let msg = `🏆 *MI PEDIDO LA FONDIATTA* 🏆\n`;
+    let msg = `🏆 *PEDIDO LA FONDIATTA* 🏆\n`;
     msg += `_Armado desde "Armá tu Equipo"_\n\n`;
+
+    // DT
+    msg += `👤 *DT:* ${state.nombreDT}\n\n`;
+
+    // Equipo
     msg += `👥 *Equipo:*\n`;
     msg += `${state.hombres} hombres · ${state.mujeres} mujeres · ${state.ninos} niños\n`;
     msg += `Total: ${totalPersonasReal()} personas\n\n`;
-    msg += `📋 *Mi pedido:*\n`;
 
+    // Pedido
+    msg += `📋 *MI PEDIDO:*\n`;
     const grupos = {
       picada:     '🥖 PICADA',
       carne:      '🥩 ASADO',
@@ -1624,7 +2189,6 @@
       conAlcohol: '🍷 BEBIDAS CON ALCOHOL',
       postre:     '🍰 POSTRES'
     };
-
     Object.entries(grupos).forEach(([cat, titulo]) => {
       const itemsCat = items.filter(i => i.category === cat);
       if (itemsCat.length > 0) {
@@ -1635,9 +2199,42 @@
       }
     });
 
-    msg += `\n💰 *TOTAL ESTIMADO: ${fmtPrice(total)}*\n`;
-    msg += `_(Precios orientativos - sin envío)_\n\n`;
-    msg += `¡Quedo a la espera de la confirmación final! 🇦🇷⚽`;
+    msg += `\n💰 *Subtotal pedido: ${fmtPrice(subtotal)}*\n`;
+
+    // ENTREGA
+    msg += `\n━━━━━━━━━━━━━━━\n`;
+    msg += `📦 *ENTREGA*\n`;
+    msg += `━━━━━━━━━━━━━━━\n`;
+
+    if (e.modalidad === 'retiro') {
+      msg += `🏪 *Modalidad:* Retiro por local\n`;
+      msg += `📍 *Local:* Beccar, San Isidro\n`;
+      msg += `👤 *Nombre:* ${e.nombre}\n`;
+      msg += `📞 *Teléfono:* ${e.telefono}\n`;
+      msg += `💳 *Pago:* ${e.metodoPago}\n`;
+    } else if (e.modalidad === 'delivery') {
+      msg += `🛵 *Modalidad:* Delivery\n`;
+      msg += `👤 *Nombre:* ${e.nombre}\n`;
+      msg += `📍 *Dirección:* ${e.direccion}\n`;
+      msg += `📞 *Teléfono:* ${e.telefono}\n`;
+      msg += `⏰ *Horario:* ${e.horario}\n`;
+      msg += `💳 *Pago:* ${e.metodoPago}\n`;
+
+      if (typeof e.costoEnvio === 'number' && e.costoEnvio > 0) {
+        msg += `🚚 *Envío (${e.zonaDetectada}):* ${fmtPrice(e.costoEnvio)}\n`;
+      } else if (e.costoEnvio === 0) {
+        msg += `🚚 *Envío:* GRATIS (${e.zonaDetectada})\n`;
+      } else if (e.costoEnvio === 'cotizar') {
+        msg += `🚚 *Envío:* A cotizar\n`;
+      }
+    }
+
+    msg += `\n💰 *TOTAL FINAL: ${fmtPrice(totalFinal)}*`;
+    if (e.modalidad === 'delivery' && e.costoEnvio === 'cotizar') {
+      msg += ` _(+ envío a cotizar)_`;
+    }
+
+    msg += `\n\n¡Quedo a la espera de la confirmación! 🇦🇷⚽`;
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
@@ -1649,13 +2246,18 @@
   function reiniciar() {
     if (!confirm('¿Seguro querés empezar de nuevo? Se va a borrar todo lo que armaste.')) return;
     state = {
+      nombreDT: '',
       hombres: 0, mujeres: 0, ninos: 0,
       picada: { incluir: null, tipo: null, tamano: null },
       carne:  { incluir: null, tipo: null, carbon: false },
       burger: { incluir: null, tipo: null },
       sinAlcohol: { incluir: null, items: {} },
       conAlcohol: { incluir: null, cerveza: { incluir: false, unidad: 0, sixpack: 0 }, vino: { incluir: false, tipo: null, cantidad: 0 } },
-      postre: { incluir: null, items: {} }
+      postre: { incluir: null, items: {} },
+      entrega: {
+        modalidad: null, nombre: '', telefono: '', direccion: '',
+        horario: '', metodoPago: '', costoEnvio: null, zonaDetectada: ''
+      }
     };
     currentStep = 0;
     render();
